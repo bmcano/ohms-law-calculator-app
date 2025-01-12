@@ -2,6 +2,8 @@ package com.brandoncano.ohmslawcalculator.model
 
 import androidx.lifecycle.ViewModel
 import com.brandoncano.ohmslawcalculator.constants.DropdownLists
+import com.brandoncano.ohmslawcalculator.data.FormulaDetails
+import com.brandoncano.ohmslawcalculator.util.GetFormulaDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -16,11 +18,20 @@ class CalculatorViewModel: ViewModel() {
     private val _selectedFormulas = MutableStateFlow(DropdownLists.FORMULAS_VOLTS)
     val selectedFormulas: StateFlow<List<String>> get() = _selectedFormulas
 
-    fun clear() {
+    private val _formulaDetails = MutableStateFlow(FormulaDetails())
+    val formulaDetails: StateFlow<FormulaDetails> get() = _formulaDetails
 
+    fun clear() {
+        // TODO
+    }
+
+    fun updateValues(v1: String, u1: String, v2: String, u2: String) {
+        _ohmsLaw.value = _ohmsLaw.value.copy(value1 = v1, units1 = u1, value2 = v2, units2 = u2)
     }
 
     fun updateFormula(formula: String) {
+        val details = GetFormulaDetails.execute(formula)
+        _formulaDetails.value = details
         _ohmsLaw.value = _ohmsLaw.value.copy(formula = formula)
     }
 

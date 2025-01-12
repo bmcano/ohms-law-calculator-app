@@ -35,11 +35,12 @@ import androidx.compose.ui.unit.dp
 import com.brandoncano.ohmslawcalculator.R
 import com.brandoncano.ohmslawcalculator.constants.DropdownLists
 import com.brandoncano.ohmslawcalculator.constants.Symbols
+import com.brandoncano.ohmslawcalculator.data.FormulaDetails
 import com.brandoncano.ohmslawcalculator.model.OhmsLaw
 import com.brandoncano.ohmslawcalculator.ui.composables.AboutAppMenuItem
+import com.brandoncano.ohmslawcalculator.ui.composables.AppDynamicDropDownMenu
 import com.brandoncano.ohmslawcalculator.ui.composables.AppThemeMenuItem
 import com.brandoncano.ohmslawcalculator.ui.theme.OhmsLawCalculatorTheme
-import com.brandoncano.sharedcomponents.composables.AppDropDownMenu
 import com.brandoncano.sharedcomponents.composables.AppMenuTopAppBar
 import com.brandoncano.sharedcomponents.composables.AppNavigationBar
 import com.brandoncano.sharedcomponents.composables.AppScreenPreviews
@@ -53,16 +54,16 @@ import com.brandoncano.sharedcomponents.text.textStyleLargeTitle
 fun CalculatorScreen(
     openMenu: MutableState<Boolean>,
     reset: MutableState<Boolean>,
-    // VM items
     ohmsLaw: OhmsLaw,
     navBarPosition: Int,
     selectedFormulas: List<String>,
-    // action items
+    formulaDetails: FormulaDetails,
     onOpenThemeDialog: () -> Unit,
     onClearSelectionsTapped: () -> Unit,
     onAboutTapped: () -> Unit,
     onNavBarSelectionChanged: (Int) -> Unit,
     onFormulaSelected: (String) -> Unit,
+    onValuesChanged: (String, String, String, String) -> Unit,
 ) {
     var navBarSelection by remember { mutableIntStateOf(navBarPosition) }
     Scaffold(
@@ -116,7 +117,9 @@ fun CalculatorScreen(
             reset = reset,
             ohmsLaw = ohmsLaw,
             selectedFormulas = selectedFormulas,
+            formulaDetails = formulaDetails,
             onFormulaSelected = onFormulaSelected,
+            onValuesChanged = onValuesChanged,
         )
     }
 }
@@ -127,11 +130,14 @@ private fun CalculatorScreenContent(
     reset: MutableState<Boolean>,
     ohmsLaw: OhmsLaw,
     selectedFormulas: List<String>,
+    formulaDetails: FormulaDetails,
     onFormulaSelected: (String) -> Unit,
+    onValuesChanged: (String, String, String, String) -> Unit,
 ) {
     val sidePadding = dimensionResource(R.dimen.app_side_padding)
     val value1 = remember { mutableStateOf(ohmsLaw.value1) }
     val value2 = remember { mutableStateOf(ohmsLaw.value2) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -141,38 +147,39 @@ private fun CalculatorScreenContent(
         ,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        AppDropDownMenu(
+        AppDynamicDropDownMenu(
             label = stringResource(R.string.calculator_select_formula),
             modifier = Modifier.padding(top = 16.dp),
-            selectedOption = ohmsLaw.formula,
-            items = selectedFormulas
-        ) {
-            onFormulaSelected(it)
-            // update units and text fields
-        }
+            items = selectedFormulas,
+            indexOnChange = 0,
+            onOptionSelected = { onFormulaSelected(it) }
+        )
         Spacer(modifier = Modifier.height(12.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             AppTextField(
-                label = stringResource(id = R.string.calculator_volts),
+                label = stringResource(id = formulaDetails.value1Label),
                 modifier = Modifier
-                    .weight(0.5f)
+                    .weight(0.6f)
                     .padding(end = 8.dp),
                 value = value1,
                 reset = reset.value,
-            ) {
-
-            }
-            AppDropDownMenu(
+                onOptionSelected = {
+                    onValuesChanged(it, ohmsLaw.units1, value2.value, ohmsLaw.units2)
+                }
+            )
+            AppDynamicDropDownMenu(
                 label = stringResource(id = R.string.calculator_units),
                 modifier = Modifier
-                    .weight(0.5f)
+                    .weight(0.4f)
                     .padding(start = 8.dp),
-                selectedOption = ohmsLaw.units1, // default to list[3] item
-                items = DropdownLists.UNITS_VOLTS,
-                onOptionSelected = {  }
+                items = formulaDetails.value1UnitList,
+                indexOnChange = 3,
+                onOptionSelected = {
+                    onValuesChanged(value1.value, it, value2.value, ohmsLaw.units2)
+                }
             )
         }
         Spacer(modifier = Modifier.height(12.dp))
@@ -181,23 +188,26 @@ private fun CalculatorScreenContent(
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             AppTextField(
-                label = stringResource(id = R.string.calculator_volts),
+                label = stringResource(id = formulaDetails.value2Label),
                 modifier = Modifier
-                    .weight(0.5f)
+                    .weight(0.6f)
                     .padding(end = 8.dp),
                 value = value2,
                 reset = reset.value,
-            ) {
-
-            }
-            AppDropDownMenu(
+                onOptionSelected = {
+                    onValuesChanged(value1.value, ohmsLaw.units1, it, ohmsLaw.units2)
+                }
+            )
+            AppDynamicDropDownMenu(
                 label = stringResource(id = R.string.calculator_units),
                 modifier = Modifier
-                    .weight(0.5f)
+                    .weight(0.4f)
                     .padding(start = 8.dp),
-                selectedOption = ohmsLaw.units2, // default to list[3] item
-                items = DropdownLists.UNITS_VOLTS,
-                onOptionSelected = {  }
+                items = formulaDetails.value2UnitList,
+                indexOnChange = 3,
+                onOptionSelected = {
+                    onValuesChanged(value1.value, ohmsLaw.units1, value2.value, it)
+                }
             )
         }
         Spacer(modifier = Modifier.height(24.dp))
@@ -218,12 +228,14 @@ private fun CalculatorScreenPreview() {
             reset = remember { mutableStateOf(false) },
             ohmsLaw = OhmsLaw(),
             navBarPosition = 0,
-            selectedFormulas = emptyList(),
+            selectedFormulas = DropdownLists.FORMULAS_VOLTS,
+            formulaDetails = FormulaDetails(),
             onOpenThemeDialog = {},
             onClearSelectionsTapped = {},
             onAboutTapped = {},
             onNavBarSelectionChanged = {},
             onFormulaSelected = {},
+            onValuesChanged = { _, _, _, _ -> },
         )
     }
 }

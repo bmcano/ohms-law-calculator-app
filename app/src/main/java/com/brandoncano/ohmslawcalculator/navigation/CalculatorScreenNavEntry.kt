@@ -30,6 +30,7 @@ fun NavGraphBuilder.calculatorScreen(
         val ohmsLaw by viewModel.ohmsLaw.collectAsState()
         val navBarSelection by viewModel.navBarSelection.collectAsState()
         val selectedFormulas by viewModel.selectedFormulas.collectAsState()
+        val formulaDetails by viewModel.formulaDetails.collectAsState()
 
         CalculatorScreen(
             openMenu = openMenu,
@@ -37,15 +38,17 @@ fun NavGraphBuilder.calculatorScreen(
             ohmsLaw = ohmsLaw,
             navBarPosition = navBarSelection,
             selectedFormulas = selectedFormulas,
+            formulaDetails = formulaDetails,
             onOpenThemeDialog = onOpenThemeDialog,
             onClearSelectionsTapped = {
+                openMenu.value = false
                 reset.value = true
                 focusManager.clearFocus()
             },
             onAboutTapped = { navigateToAbout(navHostController) },
             onNavBarSelectionChanged = { viewModel.updateNavBarSelection(it) },
-            onFormulaSelected = { viewModel.updateFormula(it) }
+            onFormulaSelected = { viewModel.updateFormula(it) },
+            onValuesChanged = { v1, u1, v2, u2 -> viewModel.updateValues(v1, u1, v2, u2) }
         )
-
     }
 }

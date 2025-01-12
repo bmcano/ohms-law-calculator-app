@@ -2,10 +2,10 @@
     <string name="app_name">"Ohm's Law Calculator"</string>
     <!-- calculator screen text -->
     <string name="calculator_title">"Ohm's Law</string>
-    <string name="calculator_volts">Volts</string>
-    <string name="calculator_amps">Amps</string>
-    <string name="calculator_resistance">Resistance</string>
-    <string name="calculator_power">Power</string>
+    <string name="calculator_volts">Volts (V)</string>
+    <string name="calculator_amps">Amps (I)</string>
+    <string name="calculator_resistance">Resistance (R)</string>
+    <string name="calculator_power">Power (P)</string>
     <string name="calculator_select_formula">Select formula</string>
     <string name="calculator_units">Units</string>
     <!-- menu items -->
