@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Ohm\'s Law Calculator</string>
+    <string name="app_name">"Ohm's Law Calculator"</string>
+    <!-- calculator screen text -->
+    <string name="calculator_title">"Ohm's Law</string>
+    <string name="calculator_volts">Volts</string>
+    <string name="calculator_amps">Amps</string>
+    <string name="calculator_resistance">Resistance</string>
+    <string name="calculator_power">Power</string>
+    <string name="calculator_select_formula">Select formula</string>
+    <string name="calculator_units">Units</string>
+    <!-- menu items -->
+    <string name="menu_about">About the app</string>
+    <string name="menu_app_theme">App appearance</string>
 </resources>
