@@ -8,7 +8,12 @@
     <string name="calculator_power">Power (P)</string>
     <string name="calculator_select_formula">Select formula</string>
     <string name="calculator_units">Units</string>
-    <!-- menu items -->
+    <!-- menu items/navigation drawer -->
     <string name="menu_about">About the app</string>
     <string name="menu_app_theme">App appearance</string>
+    <string name="nav_learn">"Learn about Ohm's law"</string>
+    <string name="nav_about">About the app</string>
+    <string name="nav_rate_us">Rate this app on Google Play</string>
+    <string name="nav_view_apps">Check out our other apps</string>
+    <string name="nav_donate">Donate</string>
 </resources>

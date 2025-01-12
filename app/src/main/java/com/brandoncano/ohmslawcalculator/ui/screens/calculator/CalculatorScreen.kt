@@ -18,14 +18,17 @@ import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.ElectricalServices
 import androidx.compose.material.icons.outlined.Power
 import androidx.compose.material.icons.outlined.Straighten
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,11 +37,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brandoncano.ohmslawcalculator.R
 import com.brandoncano.ohmslawcalculator.constants.DropdownLists
-import com.brandoncano.ohmslawcalculator.constants.Symbols
+import com.brandoncano.ohmslawcalculator.constants.Links
 import com.brandoncano.ohmslawcalculator.data.FormulaDetails
 import com.brandoncano.ohmslawcalculator.model.OhmsLaw
-import com.brandoncano.ohmslawcalculator.ui.composables.AboutAppMenuItem
 import com.brandoncano.ohmslawcalculator.ui.composables.AppDynamicDropDownMenu
+import com.brandoncano.ohmslawcalculator.ui.composables.AppNavigationDrawer
 import com.brandoncano.ohmslawcalculator.ui.composables.AppThemeMenuItem
 import com.brandoncano.ohmslawcalculator.ui.theme.OhmsLawCalculatorTheme
 import com.brandoncano.sharedcomponents.composables.AppMenuTopAppBar
@@ -49,6 +52,7 @@ import com.brandoncano.sharedcomponents.composables.ClearSelectionsMenuItem
 import com.brandoncano.sharedcomponents.composables.FeedbackMenuItem
 import com.brandoncano.sharedcomponents.data.NavigationBarOptions
 import com.brandoncano.sharedcomponents.text.textStyleLargeTitle
+import kotlinx.coroutines.launch
 
 @Composable
 fun CalculatorScreen(
@@ -60,67 +64,88 @@ fun CalculatorScreen(
     formulaDetails: FormulaDetails,
     onOpenThemeDialog: () -> Unit,
     onClearSelectionsTapped: () -> Unit,
-    onAboutTapped: () -> Unit,
     onNavBarSelectionChanged: (Int) -> Unit,
     onFormulaSelected: (String) -> Unit,
     onValuesChanged: (String, String, String, String) -> Unit,
+    onLearnOhmsLawTapped: () -> Unit,
+    onRateThisAppTapped: () -> Unit,
+    onViewOurAppsTapped: () -> Unit,
+    onDonateTapped: () -> Unit,
+    onAboutTapped: () -> Unit,
 ) {
     var navBarSelection by remember { mutableIntStateOf(navBarPosition) }
-    Scaffold(
-        topBar = {
-            AppMenuTopAppBar(
-                titleText = stringResource(R.string.calculator_title),
-                interactionSource = remember { MutableInteractionSource() },
-                showMenu = openMenu,
-                navigationIcon = Icons.Filled.Menu,
-                onNavigateBack = { /* will be for navigation drawer */ },
-            ) {
-                ClearSelectionsMenuItem(onClearSelectionsTapped)
-                FeedbackMenuItem(
-                    app = Symbols.APP_NAME,
+
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    AppNavigationDrawer(
+        drawerState = drawerState,
+        onLearnOhmsLawTapped = onLearnOhmsLawTapped,
+        onRateThisAppTapped = onRateThisAppTapped,
+        onViewOurAppsTapped = onViewOurAppsTapped,
+        onDonateTapped = onDonateTapped,
+        onAboutTapped = onAboutTapped,
+    ) {
+        Scaffold(
+            topBar = {
+                AppMenuTopAppBar(
+                    titleText = stringResource(R.string.calculator_title),
+                    interactionSource = remember { MutableInteractionSource() },
                     showMenu = openMenu,
+                    navigationIcon = Icons.Filled.Menu,
+                    onNavigateBack = {
+                        scope.launch {
+                            drawerState.apply {
+                                if (isClosed) open() else close()
+                            }
+                        }
+                    },
+                ) {
+                    ClearSelectionsMenuItem(onClearSelectionsTapped)
+                    FeedbackMenuItem(
+                        app = Links.APP_NAME,
+                        showMenu = openMenu,
+                    )
+                    AppThemeMenuItem(openMenu, onOpenThemeDialog)
+                }
+            },
+            bottomBar = {
+                AppNavigationBar(
+                    selection = navBarSelection,
+                    onClick = {
+                        navBarSelection = it
+                        onNavBarSelectionChanged(it)
+                    },
+                    options = listOf(
+                        NavigationBarOptions(
+                            label = stringResource(id = R.string.calculator_volts),
+                            imageVector = Icons.Outlined.Bolt,
+                        ),
+                        NavigationBarOptions(
+                            label = stringResource(id = R.string.calculator_amps),
+                            imageVector = Icons.Outlined.ElectricalServices,
+                        ),
+                        NavigationBarOptions(
+                            label = stringResource(id = R.string.calculator_resistance),
+                            imageVector = Icons.Outlined.Straighten, // ???
+                        ),
+                        NavigationBarOptions(
+                            label = stringResource(id = R.string.calculator_power),
+                            imageVector = Icons.Outlined.Power,
+                        ),
+                    )
                 )
-                AppThemeMenuItem(openMenu, onOpenThemeDialog)
-                AboutAppMenuItem(onAboutTapped)
             }
-        },
-        bottomBar = {
-            AppNavigationBar(
-                selection = navBarSelection,
-                onClick = {
-                    navBarSelection = it
-                    onNavBarSelectionChanged(it)
-                },
-                options = listOf(
-                    NavigationBarOptions(
-                        label = stringResource(id = R.string.calculator_volts),
-                        imageVector = Icons.Outlined.Bolt,
-                    ),
-                    NavigationBarOptions(
-                        label = stringResource(id = R.string.calculator_amps),
-                        imageVector = Icons.Outlined.ElectricalServices,
-                    ),
-                    NavigationBarOptions(
-                        label = stringResource(id = R.string.calculator_resistance),
-                        imageVector = Icons.Outlined.Straighten, // ???
-                    ),
-                    NavigationBarOptions(
-                        label = stringResource(id = R.string.calculator_power),
-                        imageVector = Icons.Outlined.Power,
-                    ),
-                )
+        ) { paddingValues ->
+            CalculatorScreenContent(
+                paddingValues = paddingValues,
+                reset = reset,
+                ohmsLaw = ohmsLaw,
+                selectedFormulas = selectedFormulas,
+                formulaDetails = formulaDetails,
+                onFormulaSelected = onFormulaSelected,
+                onValuesChanged = onValuesChanged,
             )
         }
-    ) { paddingValues ->
-        CalculatorScreenContent(
-            paddingValues = paddingValues,
-            reset = reset,
-            ohmsLaw = ohmsLaw,
-            selectedFormulas = selectedFormulas,
-            formulaDetails = formulaDetails,
-            onFormulaSelected = onFormulaSelected,
-            onValuesChanged = onValuesChanged,
-        )
     }
 }
 
@@ -232,10 +257,14 @@ private fun CalculatorScreenPreview() {
             formulaDetails = FormulaDetails(),
             onOpenThemeDialog = {},
             onClearSelectionsTapped = {},
-            onAboutTapped = {},
             onNavBarSelectionChanged = {},
             onFormulaSelected = {},
             onValuesChanged = { _, _, _, _ -> },
+            onLearnOhmsLawTapped = {},
+            onRateThisAppTapped = {},
+            onViewOurAppsTapped = {},
+            onDonateTapped = {},
+            onAboutTapped = {},
         )
     }
 }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
@@ -23,6 +24,7 @@ fun NavGraphBuilder.calculatorScreen(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
     ) {
+        val context = LocalContext.current
         val focusManager = LocalFocusManager.current
         val openMenu = remember { mutableStateOf(false) }
         val reset = remember { mutableStateOf(false) }
@@ -43,12 +45,17 @@ fun NavGraphBuilder.calculatorScreen(
             onClearSelectionsTapped = {
                 openMenu.value = false
                 reset.value = true
+                viewModel.clear()
                 focusManager.clearFocus()
             },
-            onAboutTapped = { navigateToAbout(navHostController) },
             onNavBarSelectionChanged = { viewModel.updateNavBarSelection(it) },
             onFormulaSelected = { viewModel.updateFormula(it) },
-            onValuesChanged = { v1, u1, v2, u2 -> viewModel.updateValues(v1, u1, v2, u2) }
+            onValuesChanged = { v1, u1, v2, u2 -> viewModel.updateValues(v1, u1, v2, u2) },
+            onLearnOhmsLawTapped = { navigateToLearn(navHostController) },
+            onRateThisAppTapped = { navigateToGooglePlay(context) } ,
+            onViewOurAppsTapped = { navigateToOurApps(navHostController) },
+            onDonateTapped = { navigateToDonate(navHostController) },
+            onAboutTapped = { navigateToAbout(navHostController) },
         )
     }
 }

@@ -22,7 +22,11 @@ class CalculatorViewModel: ViewModel() {
     val formulaDetails: StateFlow<FormulaDetails> get() = _formulaDetails
 
     fun clear() {
-        // TODO
+        _ohmsLaw.value = OhmsLaw(
+            formula = _ohmsLaw.value.formula,
+            units1 = _ohmsLaw.value.units1,
+            units2 = _ohmsLaw.value.units2
+        )
     }
 
     fun updateValues(v1: String, u1: String, v2: String, u2: String) {
