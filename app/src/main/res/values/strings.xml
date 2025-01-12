@@ -8,12 +8,18 @@
     <string name="calculator_power">Power (P)</string>
     <string name="calculator_select_formula">Select formula</string>
     <string name="calculator_units">Units</string>
-    <!-- about scree -->
+    <!-- about screen -->
     <string name="about_title">About The App</string>
     <string name="about_description">Description</string>
     <string name="about_description_01">"This app includes a comprehensive Ohm's Law calculator to help determine and convert values for voltage, current, resistance, and power, supporting a range of standard units and formula variations for different circuit configurations."</string>
     <string name="about_view_privacy_policy">View privacy policy</string>
     <string name="about_our_apps_header_text">Support us</string>
+    <!-- learn screen -->
+    <string name="learn_title">"Ohm's Law"</string>
+    <string name="learn_introduction">Introduction</string>
+    <string name="learn_intro_body">"Ohm's Law is a fundamental principle in electrical engineering and physics that describes the relationship between voltage (V), current (I), and resistance (R) in an electrical circuit. It states that the current through a conductor between two points is directly proportional to the voltage across the two points and inversely proportional to the resistance of the conductor."</string>
+    <string name="learn_ohms_law_circle">"Ohm's Law Pie Chart"</string>
+    <string name="learn_ohms_law_circle_description">"The Ohm's Law Circle is a helpful visual tool that shows how you can rearrange the formula to solve for different values:"</string>
     <!-- menu items/navigation drawer -->
     <string name="menu_about">About the app</string>
     <string name="menu_app_theme">App appearance</string>
