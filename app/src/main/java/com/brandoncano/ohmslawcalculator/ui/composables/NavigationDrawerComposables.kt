@@ -44,21 +44,19 @@ fun AppNavigationDrawer(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet(
-                modifier = Modifier.systemBarsPadding()
-            ) {
+            ModalDrawerSheet(modifier = Modifier.systemBarsPadding()) {
                 val iconColor = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.primary)
-                        .padding(vertical = 32.dp), // Spacing for the icon section
-                    contentAlignment = Alignment.Center
+                        .padding(vertical = 32.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.icon_foreground),
                         contentDescription = stringResource(R.string.app_name),
-                        modifier = Modifier.size(72.dp) // Icon size
+                        modifier = Modifier.size(72.dp),
                     )
                 }
                 NavigationDrawerItem(
@@ -131,6 +129,6 @@ fun AppNavigationDrawer(
 private fun NavigationDrawerText(@StringRes id: Int) {
     Text(
         text = stringResource(id),
-        style = textStyleBody().onSurfaceVariant()
+        style = textStyleBody().onSurfaceVariant(),
     )
 }

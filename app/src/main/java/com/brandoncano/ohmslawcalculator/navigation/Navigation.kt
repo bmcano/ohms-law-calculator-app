@@ -19,7 +19,7 @@ fun Navigation(onOpenThemeDialog: () -> Unit) {
         navController = navController,
         startDestination = Screen.Calculator.route
     ) {
-//        aboutScreen(navController)
+        aboutScreen(navController)
         calculatorScreen(navController, onOpenThemeDialog)
 //        learnOhmsLawScreen(navController)
         // from shared library

@@ -8,6 +8,12 @@
     <string name="calculator_power">Power (P)</string>
     <string name="calculator_select_formula">Select formula</string>
     <string name="calculator_units">Units</string>
+    <!-- about scree -->
+    <string name="about_title">About The App</string>
+    <string name="about_description">Description</string>
+    <string name="about_description_01">"This app includes a comprehensive Ohm's Law calculator to help determine and convert values for voltage, current, resistance, and power, supporting a range of standard units and formula variations for different circuit configurations."</string>
+    <string name="about_view_privacy_policy">View privacy policy</string>
+    <string name="about_our_apps_header_text">Support us</string>
     <!-- menu items/navigation drawer -->
     <string name="menu_about">About the app</string>
     <string name="menu_app_theme">App appearance</string>
