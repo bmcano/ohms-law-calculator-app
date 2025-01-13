@@ -2,7 +2,6 @@ package com.brandoncano.ohmslawcalculator.ui.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
@@ -18,15 +17,6 @@ import com.brandoncano.sharedcomponents.composables.MenuText
 /**
  * Note: Menu items are in alphabetical order
  */
-
-@Composable
-fun AboutAppMenuItem(onAboutTapped: () -> Unit) {
-    DropdownMenuItem(
-        text = { MenuText(stringRes = R.string.menu_about) },
-        onClick = onAboutTapped,
-        leadingIcon = { MenuIcon(Icons.Outlined.Info) },
-    )
-}
 
 @Composable
 fun AppThemeMenuItem(
@@ -49,8 +39,7 @@ private fun MenuItemsPreview() {
     val showMenu = remember { mutableStateOf(false) }
     OhmsLawCalculatorTheme {
         Column {
-            AboutAppMenuItem {}
-            AppThemeMenuItem(showMenu) { }
+            AppThemeMenuItem(showMenu) {}
         }
     }
 }

@@ -21,7 +21,6 @@
     <string name="learn_ohms_law_circle">"Ohm's Law Pie Chart"</string>
     <string name="learn_ohms_law_circle_description">"The Ohm's Law Circle is a helpful visual tool that shows how you can rearrange the formula to solve for different values:"</string>
     <!-- menu items/navigation drawer -->
-    <string name="menu_about">About the app</string>
     <string name="menu_app_theme">App appearance</string>
     <string name="nav_learn">"Learn about Ohm's law"</string>
     <string name="nav_about">About the app</string>

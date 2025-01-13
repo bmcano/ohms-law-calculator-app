@@ -54,7 +54,7 @@ fun AppNavigationDrawer(
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.icon_foreground),
+                        painter = painterResource(id = R.drawable.img_app_icon),
                         contentDescription = stringResource(R.string.app_name),
                         modifier = Modifier.size(72.dp),
                     )
