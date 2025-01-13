@@ -31,12 +31,14 @@ class CalculatorViewModel: ViewModel() {
 
     fun updateValues(v1: String, u1: String, v2: String, u2: String) {
         _ohmsLaw.value = _ohmsLaw.value.copy(value1 = v1, units1 = u1, value2 = v2, units2 = u2)
+        _ohmsLaw.value.calculateResult()
     }
 
     fun updateFormula(formula: String) {
         val details = GetFormulaDetails.execute(formula)
         _formulaDetails.value = details
         _ohmsLaw.value = _ohmsLaw.value.copy(formula = formula)
+        _ohmsLaw.value.calculateResult()
     }
 
     fun updateNavBarSelection(number: Int) {

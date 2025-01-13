@@ -237,7 +237,7 @@ private fun CalculatorScreenContent(
         }
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = "0.00 V",
+            text = ohmsLaw.getDisplayText(),
             style = textStyleLargeTitle(),
         )
         Spacer(modifier = Modifier.height(24.dp))
