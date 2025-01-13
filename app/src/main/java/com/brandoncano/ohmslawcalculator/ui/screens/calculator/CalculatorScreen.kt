@@ -172,9 +172,14 @@ private fun CalculatorScreenContent(
         ,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = ohmsLaw.getDisplayText(),
+            style = textStyleLargeTitle(),
+        )
         AppDynamicDropDownMenu(
             label = stringResource(R.string.calculator_select_formula),
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 24.dp),
             items = selectedFormulas,
             indexOnChange = 0,
             onOptionSelected = { onFormulaSelected(it) }
@@ -235,11 +240,6 @@ private fun CalculatorScreenContent(
                 }
             )
         }
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            text = ohmsLaw.getDisplayText(),
-            style = textStyleLargeTitle(),
-        )
         Spacer(modifier = Modifier.height(24.dp))
     }
 }

@@ -50,7 +50,10 @@ fun NavGraphBuilder.calculatorScreen(
             },
             onNavBarSelectionChanged = { viewModel.updateNavBarSelection(it) },
             onFormulaSelected = { viewModel.updateFormula(it) },
-            onValuesChanged = { v1, u1, v2, u2 -> viewModel.updateValues(v1, u1, v2, u2) },
+            onValuesChanged = { v1, u1, v2, u2 ->
+                viewModel.updateValues(v1, u1, v2, u2)
+                reset.value = false
+            },
             onLearnOhmsLawTapped = { navigateToLearn(navHostController) },
             onRateThisAppTapped = { navigateToGooglePlay(context) } ,
             onViewOurAppsTapped = { navigateToOurApps(navHostController) },

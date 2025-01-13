@@ -1,0 +1,36 @@
+----------------------------------------------------------------------------------------------------
+App name: (20/30)
+
+Ohm's Law Calculator
+----------------------------------------------------------------------------------------------------
+Short description: (78/80)
+
+Calculate voltage, current, resistance, and power effortlessly with Ohm's Law.
+----------------------------------------------------------------------------------------------------
+Full description: (1340/4000)
+
+Master your circuit calculations with the Ohm's Law Calculator—a powerful, intuitive app designed to help you compute voltage (V), current (I), resistance (R), and power (P) in seconds! Whether you're a student, hobbyist, or electrical engineer, this app simplifies Ohm's Law equations so you can focus on what matters—your projects and learning.
+
+<b>Key Features:</b>
+• Comprehensive Calculators - Quickly solve for voltage, current, resistance, or power using a variety of standard formulas.
+• Unit Conversion - Supports a wide range of units such as milliamps (mA), kilo-ohms (kΩ), and more for precision.
+• Learning Hub - Access a dedicated page to learn the basics of Ohm's Law, complete with a visual diagram.
+
+<b>Why Choose Our App?</b>
+• Accurate & Reliable - Eliminate the need to memorize formulas
+• Intuitive Design - Clean, user-friendly interface for fast and efficient calculations.
+• Fully Responsive - Optimized for all mobile devices, ensuring a smooth experience on any screen.
+
+<b>Your Feedback Matters:</b>
+Have suggestions or encountered a bug? Reach out anytime at:
+brandoncano.development@gmail.com
+
+<b>Tags:</b>
+Ohms law, Ohm's law
+Ohms law calculator, Ohm's law calculator
+Ohm's Law formulas, Ohm's Law equations
+Voltage calculator, Volts
+Current calculator, Amps
+Resistance calculator, Ohms
+Power calculator, Watts
+----------------------------------------------------------------------------------------------------
