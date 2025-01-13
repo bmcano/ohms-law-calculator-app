@@ -24,7 +24,7 @@ fun Navigation(onOpenThemeDialog: () -> Unit) {
         learnOhmsLawScreen(navController)
         // from shared library
         donateScreen(navController)
-        viewOurAppsScreen(navController, Apps.Resistor)
+        viewOurAppsScreen(navController, Apps.OhmsLaw)
     }
 }
 

@@ -42,12 +42,12 @@ import com.brandoncano.ohmslawcalculator.data.FormulaDetails
 import com.brandoncano.ohmslawcalculator.model.OhmsLaw
 import com.brandoncano.ohmslawcalculator.ui.composables.AppDynamicDropDownMenu
 import com.brandoncano.ohmslawcalculator.ui.composables.AppNavigationDrawer
-import com.brandoncano.ohmslawcalculator.ui.composables.AppThemeMenuItem
 import com.brandoncano.ohmslawcalculator.ui.theme.OhmsLawCalculatorTheme
 import com.brandoncano.sharedcomponents.composables.AppMenuTopAppBar
 import com.brandoncano.sharedcomponents.composables.AppNavigationBar
 import com.brandoncano.sharedcomponents.composables.AppScreenPreviews
 import com.brandoncano.sharedcomponents.composables.AppTextField
+import com.brandoncano.sharedcomponents.composables.AppThemeMenuItem
 import com.brandoncano.sharedcomponents.composables.ClearSelectionsMenuItem
 import com.brandoncano.sharedcomponents.composables.FeedbackMenuItem
 import com.brandoncano.sharedcomponents.data.NavigationBarOptions
