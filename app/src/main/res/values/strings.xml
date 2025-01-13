@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">"Ohm's Law Calculator"</string>
-    <!-- calculator screen text -->
+    <!-- home screen -->
+    <string name="home_calculators_header_text">Calculators</string>
+    <string name="home_voltage">Voltage</string>
+    <string name="home_current">Current</string>
+    <string name="home_resistance">Resistance</string>
+    <string name="home_power">Power</string>
+    <string name="home_learn">"Learn Ohm's law</string>
+    <!-- calculator screen -->
     <string name="calculator_title">"Ohm's Law</string>
     <string name="calculator_volts">Volts (V)</string>
     <string name="calculator_amps">Amps (I)</string>

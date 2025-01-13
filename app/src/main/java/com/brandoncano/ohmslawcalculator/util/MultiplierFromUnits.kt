@@ -8,7 +8,6 @@ object MultiplierFromUnits {
     fun execute(units: String): Double {
         val prefix = units[0]
         return when (prefix) {
-            'n' -> 0.000000001
             'μ' -> 0.000001
             'm' -> 0.001
             'k' -> 1_000.0

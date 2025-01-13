@@ -1,25 +1,26 @@
 package com.brandoncano.ohmslawcalculator.model
 
 import androidx.lifecycle.ViewModel
-import com.brandoncano.ohmslawcalculator.constants.DropdownLists
+import androidx.lifecycle.viewModelScope
 import com.brandoncano.ohmslawcalculator.data.FormulaDetails
 import com.brandoncano.ohmslawcalculator.util.GetFormulaDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-class CalculatorViewModel: ViewModel() {
+class CalculatorViewModel(formula: String): ViewModel() {
 
     private val _ohmsLaw = MutableStateFlow(OhmsLaw())
     val ohmsLaw: StateFlow<OhmsLaw> get() = _ohmsLaw
 
-    private val _navBarSelection = MutableStateFlow(0)
-    val navBarSelection: StateFlow<Int> get() = _navBarSelection
-
-    private val _selectedFormulas = MutableStateFlow(DropdownLists.FORMULAS_VOLTS)
-    val selectedFormulas: StateFlow<List<String>> get() = _selectedFormulas
-
     private val _formulaDetails = MutableStateFlow(FormulaDetails())
     val formulaDetails: StateFlow<FormulaDetails> get() = _formulaDetails
+
+    init {
+        viewModelScope.launch {
+            _formulaDetails.value = GetFormulaDetails.execute(formula)
+        }
+    }
 
     fun clear() {
         _ohmsLaw.value = OhmsLaw(
@@ -37,20 +38,9 @@ class CalculatorViewModel: ViewModel() {
     fun updateFormula(formula: String) {
         val details = GetFormulaDetails.execute(formula)
         _formulaDetails.value = details
-        _ohmsLaw.value = _ohmsLaw.value.copy(formula = formula)
+        val units1 = details.value1UnitList[2]
+        val units2 = details.value2UnitList[2]
+        _ohmsLaw.value = _ohmsLaw.value.copy(formula = formula, units1 = units1, units2 = units2)
         _ohmsLaw.value.calculateResult()
-    }
-
-    fun updateNavBarSelection(number: Int) {
-        val navBarSelection = number.coerceIn(0..3)
-        _navBarSelection.value = navBarSelection
-        _selectedFormulas.value = when (navBarSelection) {
-            0 -> DropdownLists.FORMULAS_VOLTS
-            1 -> DropdownLists.FORMULAS_AMPS
-            2 -> DropdownLists.FORMULAS_RESISTANCE
-            3 -> DropdownLists.FORMULAS_POWER
-            else -> DropdownLists.FORMULAS_VOLTS
-        }
-        updateFormula(_selectedFormulas.value[0])
     }
 }

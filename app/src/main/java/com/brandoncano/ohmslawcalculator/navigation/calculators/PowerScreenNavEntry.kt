@@ -1,64 +1,58 @@
-package com.brandoncano.ohmslawcalculator.navigation
+package com.brandoncano.ohmslawcalculator.navigation.calculators
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.brandoncano.ohmslawcalculator.constants.DropdownLists
+import com.brandoncano.ohmslawcalculator.constants.Formulas
 import com.brandoncano.ohmslawcalculator.model.CalculatorViewModel
+import com.brandoncano.ohmslawcalculator.model.CalculatorViewModelFactory
+import com.brandoncano.ohmslawcalculator.navigation.Screen
+import com.brandoncano.ohmslawcalculator.navigation.navigateToAbout
 import com.brandoncano.ohmslawcalculator.ui.screens.calculator.CalculatorScreen
 
-fun NavGraphBuilder.calculatorScreen(
+fun NavGraphBuilder.calculatorPower(
     navHostController: NavHostController,
-    onOpenThemeDialog: () -> Unit,
 ) {
     composable(
-        route = Screen.Calculator.route,
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None },
+        route = Screen.CalculatorPower.route,
+        enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+        exitTransition = { slideOutHorizontally(targetOffsetX = { it }) },
     ) {
-        val context = LocalContext.current
         val focusManager = LocalFocusManager.current
         val openMenu = remember { mutableStateOf(false) }
         val reset = remember { mutableStateOf(false) }
-        val viewModel: CalculatorViewModel = viewModel()
+        val viewModel: CalculatorViewModel = viewModel(factory = CalculatorViewModelFactory(Formulas.Power.EQ1))
         val ohmsLaw by viewModel.ohmsLaw.collectAsState()
-        val navBarSelection by viewModel.navBarSelection.collectAsState()
-        val selectedFormulas by viewModel.selectedFormulas.collectAsState()
         val formulaDetails by viewModel.formulaDetails.collectAsState()
 
         CalculatorScreen(
             openMenu = openMenu,
             reset = reset,
             ohmsLaw = ohmsLaw,
-            navBarPosition = navBarSelection,
-            selectedFormulas = selectedFormulas,
+            selectedFormulas = DropdownLists.FORMULAS_POWER,
             formulaDetails = formulaDetails,
-            onOpenThemeDialog = onOpenThemeDialog,
+            onNavigateBack = { navHostController.popBackStack() },
             onClearSelectionsTapped = {
                 openMenu.value = false
                 reset.value = true
                 viewModel.clear()
                 focusManager.clearFocus()
             },
-            onNavBarSelectionChanged = { viewModel.updateNavBarSelection(it) },
+            onAboutTapped = { navigateToAbout(navHostController) },
             onFormulaSelected = { viewModel.updateFormula(it) },
             onValuesChanged = { v1, u1, v2, u2 ->
                 viewModel.updateValues(v1, u1, v2, u2)
                 reset.value = false
             },
-            onLearnOhmsLawTapped = { navigateToLearn(navHostController) },
-            onRateThisAppTapped = { navigateToGooglePlay(context) } ,
-            onViewOurAppsTapped = { navigateToOurApps(navHostController) },
-            onDonateTapped = { navigateToDonate(navHostController) },
-            onAboutTapped = { navigateToAbout(navHostController) },
         )
     }
 }
