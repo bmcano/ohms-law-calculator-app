@@ -135,10 +135,16 @@ private fun HomeScreenContent(
             )
         )
         Spacer(modifier = Modifier.height(32.dp))
+        Text(
+            text = stringResource(id = R.string.home_learn),
+            modifier = Modifier.align(Alignment.Start),
+            style = textStyleHeadline(),
+        )
+        Spacer(modifier = Modifier.height(12.dp))
         AppArrowCardButton(
             ArrowCardButtonContents(
                 imageVector = Icons.Outlined.Lightbulb,
-                text = stringResource(id = R.string.home_learn),
+                text = stringResource(id = R.string.home_learn_button),
                 onClick = onLearnTapped,
             ),
         )

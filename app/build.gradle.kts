@@ -12,8 +12,8 @@ android {
         applicationId = "com.brandoncano.ohmslawcalculator"
         minSdk = 21
         targetSdk = 35
-        versionCode = 1 // for 1.0.0-RC1
-        versionName = "1.0.0-develop"
+        versionCode = 2 // for 1.0.0
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -23,7 +23,7 @@ android {
     }
     applicationVariants.configureEach {
         resValue("string", "version", versionName)
-        resValue("string", "last_updated", "1/11/2025")
+        resValue("string", "last_updated", "1/13/2025")
     }
     buildTypes {
         release {
