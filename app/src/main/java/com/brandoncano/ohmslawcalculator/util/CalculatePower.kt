@@ -9,8 +9,8 @@ import kotlin.math.pow
 object CalculatePower {
 
     fun execute(v1: String, u1: String, v2: String, u2: String, formula: String): String {
-        val value1 = v1.toDoubleOrNull() ?: return "0.00"
-        val value2 = v2.toDoubleOrNull() ?: return "0.00"
+        val value1 = v1.toDoubleOrNull() ?: return "Invalid input"
+        val value2 = v2.toDoubleOrNull() ?: return "Invalid input"
 
         val m1 = MultiplierFromUnits.execute(u1)
         val m2 = MultiplierFromUnits.execute(u2)

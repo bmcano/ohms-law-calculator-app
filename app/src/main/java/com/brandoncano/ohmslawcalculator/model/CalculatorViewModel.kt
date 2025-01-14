@@ -3,6 +3,7 @@ package com.brandoncano.ohmslawcalculator.model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brandoncano.ohmslawcalculator.data.FormulaDetails
+import com.brandoncano.ohmslawcalculator.data.OhmsLaw
 import com.brandoncano.ohmslawcalculator.util.GetFormulaDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

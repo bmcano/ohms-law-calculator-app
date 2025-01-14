@@ -29,7 +29,7 @@ import com.brandoncano.ohmslawcalculator.R
 import com.brandoncano.ohmslawcalculator.constants.DropdownLists
 import com.brandoncano.ohmslawcalculator.constants.Links
 import com.brandoncano.ohmslawcalculator.data.FormulaDetails
-import com.brandoncano.ohmslawcalculator.model.OhmsLaw
+import com.brandoncano.ohmslawcalculator.data.OhmsLaw
 import com.brandoncano.ohmslawcalculator.ui.composables.AppDynamicDropDownMenu
 import com.brandoncano.ohmslawcalculator.ui.theme.OhmsLawCalculatorTheme
 import com.brandoncano.sharedcomponents.composables.AboutAppMenuItem

@@ -1,4 +1,4 @@
-package com.brandoncano.ohmslawcalculator.model
+package com.brandoncano.ohmslawcalculator.data
 
 import com.brandoncano.ohmslawcalculator.constants.Formulas
 import com.brandoncano.ohmslawcalculator.util.CalculateCurrent
@@ -15,6 +15,10 @@ data class OhmsLaw(
     var result: String = "0.00"
 ) {
     fun calculateResult() {
+        if (value1.isEmpty() || value2.isEmpty()) {
+            result = "0.00"
+            return
+        }
         this.result = when (formula) {
             Formulas.Volts.EQ1, Formulas.Volts.EQ2, Formulas.Volts.EQ3 ->
                 CalculateVoltage.execute(value1, units1, value2, units2, formula)
