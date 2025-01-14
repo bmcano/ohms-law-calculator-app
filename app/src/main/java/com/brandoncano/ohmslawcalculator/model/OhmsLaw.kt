@@ -16,31 +16,15 @@ data class OhmsLaw(
 ) {
     fun calculateResult() {
         this.result = when (formula) {
-            Formulas.Volts.EQ1 -> CalculateVoltage.executeEq1(value1, units1, value2, units2)
-            Formulas.Volts.EQ2 -> CalculateVoltage.executeEq2(value1, units1, value2, units2)
-            Formulas.Volts.EQ3 -> CalculateVoltage.executeEq3(value1, units1, value2, units2)
-            Formulas.Amps.EQ1 -> CalculateCurrent.executeEq1(value1, units1, value2, units2)
-            Formulas.Amps.EQ2 -> CalculateCurrent.executeEq2(value1, units1, value2, units2)
-            Formulas.Amps.EQ3 -> CalculateCurrent.executeEq3(value1, units1, value2, units2)
-            Formulas.Resistance.EQ1 -> CalculateResistance.executeEq1(value1, units1, value2, units2)
-            Formulas.Resistance.EQ2 -> CalculateResistance.executeEq2(value1, units1, value2, units2)
-            Formulas.Resistance.EQ3 -> CalculateResistance.executeEq3(value1, units1, value2, units2)
-            Formulas.Power.EQ1 -> CalculatePower.executeEq1(value1, units1, value2, units2)
-            Formulas.Power.EQ2 -> CalculatePower.executeEq2(value1, units1, value2, units2)
-            Formulas.Power.EQ3 -> CalculatePower.executeEq3(value1, units1, value2, units2)
-            else -> CalculateVoltage.executeEq1(value1, units1, value2, units2)
+            Formulas.Volts.EQ1, Formulas.Volts.EQ2, Formulas.Volts.EQ3 ->
+                CalculateVoltage.execute(value1, units1, value2, units2, formula)
+            Formulas.Amps.EQ1, Formulas.Amps.EQ2, Formulas.Amps.EQ3 ->
+                CalculateCurrent.execute(value1, units1, value2, units2, formula)
+            Formulas.Resistance.EQ1, Formulas.Resistance.EQ2, Formulas.Resistance.EQ3 ->
+                CalculateResistance.execute(value1, units1, value2, units2, formula)
+            Formulas.Power.EQ1, Formulas.Power.EQ2, Formulas.Power.EQ3 ->
+                CalculatePower.execute(value1, units1, value2, units2, formula)
+            else -> CalculateVoltage.execute(value1, units1, value2, units2, formula)
         }
-    }
-
-    fun getDisplayText(): String {
-        // TODO - need to round and get proper unit adjustments
-        val unit = when (this.formula[0]) {
-            'V' -> "V"
-            'I' -> "A"
-            'R' -> "Ω"
-            'P' -> "W"
-            else -> "V"
-        }
-        return "$result $unit"
     }
 }

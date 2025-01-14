@@ -1,36 +1,39 @@
 package com.brandoncano.ohmslawcalculator.util
 
+import com.brandoncano.ohmslawcalculator.constants.Formulas
 import kotlin.math.pow
 
+/**
+ * Job: Calculate and format the resistance into the proper string for display
+ */
 object CalculateResistance {
 
-    // R = V / I
-    fun executeEq1(voltage: String, volts: String, current: String, amps: String): String {
-        val v = voltage.toDoubleOrNull() ?: return "0.00"
-        val i = current.toDoubleOrNull() ?: return "0.00"
-        if (i == 0.0) return "NaN"
-        val r = v / i
-        val multiplier = MultiplierFromUnits.execute(volts) / MultiplierFromUnits.execute(amps)
-        return (r * multiplier).toString()
+    fun execute(v1: String, u1: String, v2: String, u2: String, formula: String): String {
+        val value1 = v1.toDoubleOrNull() ?: return "0.00"
+        val value2 = v2.toDoubleOrNull() ?: return "0.00"
+        if (value2 == 0.0) return "NaN"
+
+        val m1 = MultiplierFromUnits.execute(u1)
+        val m2 = MultiplierFromUnits.execute(u2)
+        val r = when (formula) {
+            Formulas.Resistance.EQ3 -> eq3(value1, m1, value2, m2)
+            Formulas.Resistance.EQ2 -> eq2(value1, m1, value2, m2)
+            else -> eq1(value1, m1, value2, m2)
+        }
+
+        val result = FindBestUnit.execute(r)
+        return "${FormatResult.execute(result.first)} ${result.second}Ω"
     }
 
-    // R = V² / P
-    fun executeEq2(voltage: String, volts: String, power: String, watts: String): String {
-        val v = voltage.toDoubleOrNull() ?: return "0.00"
-        val p = power.toDoubleOrNull() ?: return "0.00"
-        if (p == 0.0) return "NaN"
-        val r = (v * v) / p
-        val multiplier = (MultiplierFromUnits.execute(volts).pow(2)) / MultiplierFromUnits.execute(watts)
-        return (r * multiplier).toString()
+    private fun eq1(v1: Double, m1: Double, v2: Double, m2: Double): Double {
+        return (v1 * m1) / (v2 * m2) // R = V / I
     }
 
-    // R = P / I²
-    fun executeEq3(power: String, watts: String, current: String, amps: String): String {
-        val p = power.toDoubleOrNull() ?: return "0.00"
-        val i = current.toDoubleOrNull() ?: return "0.00"
-        if (i == 0.0) return "NaN"
-        val r = p / (i * i)
-        val multiplier = MultiplierFromUnits.execute(watts) / (MultiplierFromUnits.execute(amps).pow(2))
-        return (r * multiplier).toString()
+    private fun eq2(v1: Double, m1: Double, v2: Double, m2: Double): Double {
+        return (v1 * m1).pow(2) / (v2 * m2) // R = V² / P
+    }
+
+    private fun eq3(v1: Double, m1: Double, v2: Double, m2: Double): Double {
+        return (v1 * m1) / (v2 * m2).pow(2) // R = P / I²
     }
 }

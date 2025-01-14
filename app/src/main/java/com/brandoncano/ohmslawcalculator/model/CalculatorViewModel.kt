@@ -19,6 +19,9 @@ class CalculatorViewModel(formula: String): ViewModel() {
     init {
         viewModelScope.launch {
             _formulaDetails.value = GetFormulaDetails.execute(formula)
+            val units1 = _formulaDetails.value.value1UnitList[2]
+            val units2 = _formulaDetails.value.value2UnitList[2]
+            _ohmsLaw.value = OhmsLaw(formula = formula, units1 = units1, units2 = units2)
         }
     }
 

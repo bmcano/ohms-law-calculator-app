@@ -7,10 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.brandoncano.ohmslawcalculator.R
 import com.brandoncano.ohmslawcalculator.constants.DropdownLists
 import com.brandoncano.ohmslawcalculator.constants.Formulas
 import com.brandoncano.ohmslawcalculator.model.CalculatorViewModel
@@ -35,6 +37,7 @@ fun NavGraphBuilder.calculatorVoltage(
         val formulaDetails by viewModel.formulaDetails.collectAsState()
 
         CalculatorScreen(
+            title = stringResource(R.string.home_voltage),
             openMenu = openMenu,
             reset = reset,
             ohmsLaw = ohmsLaw,

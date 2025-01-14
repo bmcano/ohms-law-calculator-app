@@ -42,6 +42,7 @@ import com.brandoncano.sharedcomponents.text.textStyleLargeTitle
 
 @Composable
 fun CalculatorScreen(
+    title: String,
     openMenu: MutableState<Boolean>,
     reset: MutableState<Boolean>,
     ohmsLaw: OhmsLaw,
@@ -56,7 +57,7 @@ fun CalculatorScreen(
     Scaffold(
         topBar = {
             AppMenuTopAppBar(
-                titleText = stringResource(R.string.calculator_title),
+                titleText = title,
                 interactionSource = remember { MutableInteractionSource() },
                 showMenu = openMenu,
                 navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
@@ -107,7 +108,7 @@ private fun CalculatorScreenContent(
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = ohmsLaw.getDisplayText(),
+            text = ohmsLaw.result,
             style = textStyleLargeTitle(),
         )
         AppDynamicDropDownMenu(
@@ -182,6 +183,7 @@ private fun CalculatorScreenContent(
 private fun CalculatorScreenPreview() {
     OhmsLawCalculatorTheme {
         CalculatorScreen(
+            title = "Voltage",
             openMenu = remember { mutableStateOf(false) },
             reset = remember { mutableStateOf(false) },
             ohmsLaw = OhmsLaw(),
