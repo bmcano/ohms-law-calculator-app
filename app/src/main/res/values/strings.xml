@@ -9,7 +9,6 @@
     <string name="home_learn">"Learn Ohm's law"</string>
     <string name="home_learn_button">"View the equations"</string>
     <!-- calculator screen -->
-    <string name="calculator_title">"Ohm's Law</string>
     <string name="calculator_volts">Volts (V)</string>
     <string name="calculator_amps">Amps (I)</string>
     <string name="calculator_resistance">Resistance (R)</string>
@@ -21,18 +20,10 @@
     <string name="about_description">Description</string>
     <string name="about_description_01">"This app includes a comprehensive Ohm's Law calculator to help determine and convert values for voltage, current, resistance, and power, supporting a range of standard units and formula variations for different circuit configurations."</string>
     <string name="about_view_privacy_policy">View privacy policy</string>
-    <string name="about_our_apps_header_text">Support us</string>
     <!-- learn screen -->
     <string name="learn_title">"Ohm's Law"</string>
     <string name="learn_introduction">Introduction</string>
     <string name="learn_intro_body">"Ohm's Law is a fundamental principle in electrical engineering and physics that describes the relationship between voltage (V), current (I), and resistance (R) in an electrical circuit. It states that the current through a conductor between two points is directly proportional to the voltage across the two points and inversely proportional to the resistance of the conductor."</string>
     <string name="learn_ohms_law_circle">"Ohm's Law Pie Chart"</string>
     <string name="learn_ohms_law_circle_description">"The Ohm's Law Circle is a helpful visual tool that shows how you can rearrange the formula to solve for different values:"</string>
-    <!-- menu items/navigation drawer -->
-    <string name="menu_app_theme">App appearance</string>
-    <string name="nav_learn">"Learn about Ohm's law"</string>
-    <string name="nav_about">About the app</string>
-    <string name="nav_rate_us">Rate this app on Google Play</string>
-    <string name="nav_view_apps">Check out our other apps</string>
-    <string name="nav_donate">Donate</string>
 </resources>
