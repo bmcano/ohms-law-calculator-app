@@ -12,8 +12,8 @@ android {
         applicationId = "com.brandoncano.ohmslawcalculator"
         minSdk = 21
         targetSdk = 35
-        versionCode = 2 // for 1.0.0
-        versionName = "1.0.0"
+        versionCode = 3 // for 1.0.1
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -24,7 +24,7 @@ android {
     applicationVariants.configureEach {
         val suffix = if (buildType.name == "debug") ", DEBUG" else ""
         resValue("string", "version", "$versionName$suffix")
-        resValue("string", "last_updated", "1/13/2025")
+        resValue("string", "last_updated", "1/15/2025")
     }
     buildTypes {
         release {
